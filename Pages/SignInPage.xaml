@@ -1,0 +1,321 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GSBFLauncher.Pages"
+      xmlns:control="https://github.com/qtbui159/CypherBox"
+      xmlns:attachedProperties="clr-namespace:GSBFLauncher.Attached_Properties"
+      xmlns:CustomControls="clr-namespace:GSBFLauncher.CustomControls" xmlns:syncfusion="http://schemas.syncfusion.com/wpf" x:Class="GSBFLauncher.Pages.SignInPage"
+      mc:Ignorable="d" 
+      d:DesignHeight="829" d:DesignWidth="1538"
+      Title="SignInPage">
+    <Grid Background="#FF212329">
+        <Border x:Name="LoginPanel"
+            MinHeight="450"
+            MinWidth="470"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center" Background="#FF4F5660" Margin="0,0,200,0" CornerRadius="38,38,38,38" Visibility="Visible">
+            <Grid>
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock
+                    Text="Welcome!"
+                    FontFamily="Brutal Type"
+                    FontWeight="Bold"
+                    FontSize="25"
+                    Foreground="{StaticResource CaptionFontBrush}" HorizontalAlignment="Center" Margin="0,0,0,30"/>
+
+                    <TextBlock
+                    Text="Join The Community"
+                    FontFamily="Brutal Type"
+                    FontWeight="Bold"
+                    FontSize="25"
+                    Foreground="{StaticResource CaptionFontBrush}" HorizontalAlignment="Center" Margin="0,0,0,30"/>
+                    <Grid Height="50" Width="350" Margin="0,0,0,20">
+                        <TextBox x:Name="UsernameField" TextWrapping="Wrap"
+                             HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
+                             Background="{x:Null}" Foreground="{DynamicResource CaptionFontBrush}" FontSize="16" FontFamily="Brutal Type"
+                             >
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="8"/>
+                                    <Setter Property="Padding" Value="8,0,0,0"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <TextBlock IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                                   Foreground="DarkGray" Margin="12,0,0,0" FontWeight="Bold" FontFamily="Brutal Type" FontSize="16" Text="Email">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=UsernameField}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                    <Grid Height="50" Width="350" Margin="0,0,0,20">
+                        <Border CornerRadius="8,8,8,8" BorderBrush="#FFABADB3" BorderThickness="1.3,1.3,1.3,1.3">
+                            <control:CypherBox x:Name="PasswordField" Placeholder="Password" FontFamily="Brutal Type" Foreground="White" FontSize="16" BorderBrush="#00ABADB3" Padding="8,0,0,0" Cursor="IBeam" FontWeight="Bold"/>
+                        </Border>
+                    </Grid>
+                    <Button x:Name="LoginButton" Content="Sign In" Width="250" Height="50" 
+                            BorderBrush="{x:Null}" Foreground="{DynamicResource CaptionFontBrush}" 
+                            FontFamily="Brutal Type" FontSize="20" FontWeight="Bold" 
+                            Click="LoginButton_Click">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#FF7A67C7"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF6F5EB5"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <TextBlock
+                        Foreground="{StaticResource CaptionFontBrush}"
+                        FontFamily="Brutal Type"
+                        FontSize="14"
+                        TextAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Margin="0,12"
+                        LineHeight="20"><Run
+                            Text="Don't have an account?"/><Run Text=" "/><Hyperlink
+                                FontWeight="Bold"
+                                TextDecorations="None" Click="SignUpButton_Click">
+    <Hyperlink.Foreground>
+        <SolidColorBrush Color="White"/>
+    </Hyperlink.Foreground><Run Text="Sign Up"/></Hyperlink></TextBlock>
+                    <TextBlock x:Name="ErrorMessage"
+                        Foreground="#FFE53E46"
+                        FontWeight="SemiBold"
+                        FontSize="14"
+                        Text="Incorrect username or password!"
+                        Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+                <attachedProperties:LoginServiceButtons
+                        Content="SIGN IN WITH EPIC GAMES"
+                        IconHeight="25"
+                        IconWidth="22"
+                        Icon="{StaticResource EpicIcon}"
+                        IconBackground="{StaticResource EpicBackBrush}"
+                        IconBackgroundHover="{StaticResource EpicBackHoverBrush}"
+                        IconFill="{StaticResource SignInIconsBackBrush}" Click="LoginServiceButtons_Click" Visibility="Hidden" Margin="60,120,60,280"/>
+            </Grid>
+        </Border>
+        <Button
+            Content="{StaticResource SettingsIcon}"
+            FontSize="14"
+            HorizontalAlignment="Left"
+            Margin="39,0,0,35"
+            VerticalAlignment="Bottom"
+            Click="ButtonBase_OnClick">
+            <Button.Style>
+                <Style 
+                    TargetType="{x:Type Button}"
+                    BasedOn="{StaticResource IconOnlyButtonStyle}">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                              Value="True">
+                            <Setter Property="Foreground" Value="{StaticResource SettingsIconHoverBrush}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+        <Border x:Name="RegisterPanel"
+            MinHeight="550"
+            MinWidth="470"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Center" Background="#FF4F5660" CornerRadius="38,38,38,38" Visibility="Visible" Margin="0,0,200,0" d:IsHidden="True">
+            <Grid>
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock
+                        Text="Welcome!"
+                        FontFamily="Brutal Type"
+                        FontWeight="Bold"
+                        FontSize="25"
+                        Foreground="{StaticResource CaptionFontBrush}" HorizontalAlignment="Center" Margin="0,0,0,30"/>
+
+                    <TextBlock
+                        Text="Join The Community"
+                        FontFamily="Brutal Type"
+                        FontWeight="Bold"
+                        FontSize="25"
+                        Foreground="{StaticResource CaptionFontBrush}" HorizontalAlignment="Center" Margin="0,0,0,30"/>
+                    <Grid Height="50" Width="350" Margin="0,0,0,10">
+                        <TextBox x:Name="UsernameInput" TextWrapping="Wrap"
+                            HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
+                            Background="{x:Null}" Foreground="{DynamicResource CaptionFontBrush}" FontSize="16" FontFamily="Brutal Type"
+                             >
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="8"/>
+                                    <Setter Property="Padding" Value="8, 0, 0, 0"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <TextBlock IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                            Foreground="DarkGray" Margin="12,0,0,0" FontWeight="Bold" FontFamily="Brutal Type" FontSize="16" Text="Username">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=UsernameInput}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                    <Grid Height="50" Width="350" Margin="0,0,0,10">
+                        <TextBox x:Name="NicknameInput" TextWrapping="Wrap"
+                            HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
+                            Background="{x:Null}" Foreground="{DynamicResource CaptionFontBrush}" FontSize="16" FontFamily="Brutal Type"
+                             >
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="8"/>
+                                    <Setter Property="Padding" Value="8, 0, 0, 0"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <TextBlock IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                            Foreground="DarkGray" Margin="12,0,0,0" FontWeight="Bold" FontFamily="Brutal Type" FontSize="16" Text="Nickname">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=NicknameInput}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                    <Grid Height="50" Width="350" Margin="0,0,0,10">
+                        <TextBox x:Name="EmailInput" TextWrapping="Wrap"
+                            HorizontalContentAlignment="Left" VerticalContentAlignment="Center" 
+                            Background="{x:Null}" Foreground="{DynamicResource CaptionFontBrush}" FontSize="16" FontFamily="Brutal Type"
+                             >
+                            <TextBox.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="8"/>
+                                    <Setter Property="Padding" Value="8, 0, 0, 0"/>
+                                </Style>
+                            </TextBox.Resources>
+                        </TextBox>
+                        <TextBlock IsHitTestVisible="False" VerticalAlignment="Center" HorizontalAlignment="Stretch" 
+                            Foreground="DarkGray" Margin="12,0,0,0" FontWeight="Bold" FontFamily="Brutal Type" FontSize="16" Text="Email">
+                            <TextBlock.Style>
+                                <Style TargetType="{x:Type TextBlock}">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Text, ElementName=EmailInput}" Value="">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </Grid>
+                    <Border Height="50" Width="350" Margin="0,0,0,20" BorderThickness="1.3,1.3,1.3,1.3" CornerRadius="8,8,8,8" BorderBrush="#FFABADB3">
+                        <control:CypherBox x:Name="PasswordInput" Placeholder="Password" FontFamily="Brutal Type" Foreground="White" FontSize="16" BorderBrush="#00ABADB3" Padding="8,0,0,0" Cursor="IBeam" FontWeight="Bold" Margin="1,1,1,1"/>
+                    </Border>
+                    <Button x:Name="RegisterButton" Content="Sign Up" Width="250" Height="50" 
+                        BorderBrush="{x:Null}" Foreground="{DynamicResource CaptionFontBrush}" 
+                        FontFamily="Brutal Type" FontSize="20" FontWeight="Bold" 
+                        Click="LoginButton_Click">
+                        <Button.Resources>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="CornerRadius" Value="10"/>
+                            </Style>
+                        </Button.Resources>
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Background" Value="#FF7A67C7"/>
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FF6F5EB5"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <TextBlock
+                        Foreground="{StaticResource CaptionFontBrush}"
+                        FontFamily="Brutal Type"
+                        FontSize="14"
+                        TextAlignment="Center"
+                        HorizontalAlignment="Center"
+                        Margin="0,12"
+                        LineHeight="20"><Run
+                            Text="Already have an account?"/><Run Text=" "/><Hyperlink
+                            Foreground="{StaticResource CaptionFontBrush}"
+                            FontWeight="Bold"
+                            TextDecorations="None" Click="SignIn_Click"><Run Text="Sign In"/></Hyperlink></TextBlock>
+                    <TextBlock x:Name="ErrorMessageReg"
+                        Foreground="#FFE53E46"
+                        FontWeight="SemiBold"
+                        FontSize="14"
+                        Text="Incorrect username or password!"
+                        Visibility="Hidden" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </StackPanel>
+                <attachedProperties:LoginServiceButtons
+                    Content="SIGN IN WITH EPIC GAMES"
+                    IconHeight="25"
+                    IconWidth="22"
+                    Icon="{StaticResource EpicIcon}"
+                    IconBackground="{StaticResource EpicBackBrush}"
+                    IconBackgroundHover="{StaticResource EpicBackHoverBrush}"
+                    IconFill="{StaticResource SignInIconsBackBrush}" Click="LoginServiceButtons_Click" Visibility="Hidden" Margin="60,120,60,280"/>
+            </Grid>
+        </Border>
+        <Grid x:Name="LoadingPanel" Margin="0,5,0,0" Background="#FF212329" Grid.Row="1" Visibility="Hidden">
+            <syncfusion:SfBusyIndicator x:Name="Loader" Content="" HorizontalAlignment="Center" Margin="0" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" RenderTransformOrigin="0.5,0.5" AnimationSpeed="95">
+                <syncfusion:SfBusyIndicator.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </syncfusion:SfBusyIndicator.RenderTransform>
+            </syncfusion:SfBusyIndicator>
+        </Grid>
+    </Grid>
+</Page>
